@@ -1,0 +1,34 @@
+steps:
+  - read: owner_name
+    from: env.owner_name
+    fallback:
+      from: git.author_name
+      fallback:
+        prompt: What is your name?
+
+  - read: owner_email
+    from: env.owner_email
+    fallback:
+      from: git.author_email
+      fallback:
+        prompt: What is your email address?
+        
+  - read: repo_name
+    from: env.repo_name
+    fallback:
+      from: git.remote_name
+      fallback:
+        from: path.rootdir
+ 
+  - read: repo_url
+    from: env.repo_url
+    fallback:
+      from: git.remote_url
+      fallback:
+        eval: 'git@github.com/{{ owner_name }}/{{ repo_name }}.git
+
+  - copy: README.tmpl.md
+    to: README.md
+    
+  - remove: README.tmpl.md
+  - remove: .tmplr.yml
