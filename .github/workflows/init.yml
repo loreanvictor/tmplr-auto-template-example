@@ -1,0 +1,35 @@
+name: Initialize Template
+
+#
+# Run this on creation of a branch or ref
+#
+on: create
+
+jobs:
+  build:
+    #
+    # Check to run on creation of main branch (so only on repo initialization)
+    #
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      #
+      # Checkout the code
+      #
+      - uses: actions/checkout@v2
+      
+      #
+      # Run tmplr with required environment variables
+      #
+      - name: Setup
+        run: npx tmplr
+        env:
+          owner_name: ${{ github.event.repository.owner.name }}
+          owner_email: ${{ github.event.repository.owner.email }}
+          repo_name: ${{ github.event.repository.name }}
+          repo_url: ${{ github.event.repository.ssh_url }}
+      
+      #
+      # Commit the code
+      #
+      - uses: actions-x/commit@v1
