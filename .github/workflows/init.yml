@@ -12,7 +12,7 @@ jobs:
     #
     # Change this to make sure your workflow doesn't initialize on your template!
     #
-    if: github.repository != 'loreanvictor/tmplr-auto-template-example'
+    if: github.repository != 'loreanvictor/tmplr-template-example'
 
     runs-on: ubuntu-latest
     steps:
