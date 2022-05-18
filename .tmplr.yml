@@ -25,10 +25,9 @@ steps:
     fallback:
       from: git.remote_url
       fallback:
-        eval: 'git@github.com/{{ owner_name }}/{{ repo_name }}.git
+        eval: 'git@github.com/{{ owner_name }}/{{ repo_name }}.git'
 
   - copy: README.tmpl.md
     to: README.md
     
   - remove: README.tmpl.md
-  - remove: .tmplr.yml
