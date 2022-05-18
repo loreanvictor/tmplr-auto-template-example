@@ -22,12 +22,6 @@ jobs:
       - uses: actions/checkout@v2
       
       #
-      # There is a weird error with github workspace ...
-      #
-      # - name: Fix weird safe directory error?
-      #  run: git config --global --add safe.directory /github/workspace
-      
-      #
       # Check if there is a template recipe
       #
       - id: template_exists
@@ -42,7 +36,7 @@ jobs:
       #
       - name: Apply template
         if: steps.template_exists.outputs.files_exists == 'true'
-        run: npx tmplr && rm -fr .tmplr.yml
+        run: npx tmplr && rm -fr .tmplr.yml && rm -fr .github/workflows/init.yml
         env:
           owner_name: ${{ github.event.repository.owner.name }}
           owner_email: ${{ github.event.repository.owner.email }}
