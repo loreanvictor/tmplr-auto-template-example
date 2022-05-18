@@ -52,8 +52,6 @@ jobs:
       #
       # Commit the code
       #
-      - uses: github-actions-x/commit@v2.9
+      - uses: EndBug/add-and-commit@v9
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: 'main'
-          commit-message: 'Initialize repo from template.'
+          message: Initialize from template
