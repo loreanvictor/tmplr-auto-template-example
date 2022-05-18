@@ -24,8 +24,8 @@ jobs:
       #
       # There is a weird error with github workspace ...
       #
-      - name: Fix weird safe directory error?
-        run: git config --global --add safe.directory /github/workspace
+      # - name: Fix weird safe directory error?
+      #  run: git config --global --add safe.directory /github/workspace
       
       #
       # Check if there is a template recipe
@@ -52,4 +52,8 @@ jobs:
       #
       # Commit the code
       #
-      - uses: actions-x/commit@v1
+      - uses: actions-x/commit@v2.9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'main'
+          commit-message: 'Initialize repo from template.'
