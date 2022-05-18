@@ -55,6 +55,7 @@ steps:
     to: README.md
    
   #
-  # We don't need the README template anymore.
+  # We don't need the README template anymore, or the demo gif.
   #
   - remove: README.tmpl.md
+  - remove: demo.gif
