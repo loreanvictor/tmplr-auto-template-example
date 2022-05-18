@@ -2,9 +2,9 @@
 
 This is an example template repository using [`tmplr`](https://github.com/loreanvictor/tmplr) for templating.
 
-👉 If you click on **Use this template** button above, it will automatically create an apt README for you.
+👉 If you click on **Use this template** button above, it will automatically apply the template recipe and create an apt README for you.
 
-👉 If you create an empty repo, you can use this template on it using the following command:
+👉 If you create an empty repo, you can still apply this template on it using the following command:
 ```bash
 npx tmplr loreanvictor/tmplr-template-example
 ```
