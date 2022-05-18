@@ -1,4 +1,10 @@
 steps:
+  #
+  # Read the name of the repo owner
+  # It might be set by Github workflow as an environment variable,
+  # or it might be set in local git settings.
+  # If all fails, we will simply ask the user.
+  #
   - read: owner_name
     from: env.owner_name
     fallback:
@@ -6,13 +12,21 @@ steps:
       fallback:
         prompt: What is your name?
 
+  #
+  # Figure out user's email. Same process as their name.
+  #
   - read: owner_email
     from: env.owner_email
     fallback:
       from: git.author_email
       fallback:
         prompt: What is your email address?
-        
+
+  #
+  # Similar to name and email of the owner of the repo. However,
+  # if we're not invoked via an Action and there is no local git,
+  # then we'll just use the directory name as the project name.
+  #
   - read: repo_name
     from: env.repo_name
     fallback:
@@ -20,6 +34,12 @@ steps:
       fallback:
         from: path.rootdir
  
+  #
+  # So if the remote url cannot be figured out, we
+  # construct it using the owner name and repo name. This
+  # is for illustration purposes and might be wrong (e.g. the
+  # repo is not hosted on github).
+  #
   - read: repo_url
     from: env.repo_url
     fallback:
@@ -27,7 +47,14 @@ steps:
       fallback:
         eval: 'git@github.com/{{ owner_name }}/{{ repo_name }}.git'
 
+  #
+  # Copy the README template file. Will automatically
+  # replace all variables we "read" above while copying.
+  #
   - copy: README.tmpl.md
     to: README.md
-    
+   
+  #
+  # We don't need the README template anymore.
+  #
   - remove: README.tmpl.md
