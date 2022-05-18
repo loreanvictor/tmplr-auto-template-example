@@ -3,14 +3,13 @@ name: Initialize Template
 #
 # Run this on creation of a branch or ref
 #
-on: create
+on:
+  push:
+    branches: main
 
 jobs:
   build:
-    #
-    # Check to run on creation of main branch (so only on repo initialization)
-    #
-    if: github.ref == 'refs/heads/main'
+
     runs-on: ubuntu-latest
     steps:
       #
@@ -28,6 +27,14 @@ jobs:
           owner_email: ${{ github.event.repository.owner.email }}
           repo_name: ${{ github.event.repository.name }}
           repo_url: ${{ github.event.repository.ssh_url }}
+      
+      #
+      # Cleanup stuff so that the workflow doesn't run anymore
+      #
+      - name: Cleanup
+        run: |
+          rm -fr .tmplr.yml
+          rm -fr .github/workflows/init.yml
       
       #
       # Commit the code
