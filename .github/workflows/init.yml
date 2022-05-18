@@ -22,24 +22,27 @@ jobs:
       - uses: actions/checkout@v2
       
       #
-      # Run tmplr with required environment variables
+      # Check if there is a template recipe
       #
-      - name: Setup
-        run: npx tmplr
+      - id: template_exists
+        name: Check template
+        uses: andstor/file-existence-action@v1
+        with:
+          files: .tmplr.yml
+      
+      #
+      # Run tmplr with required environment variables,
+      # and remove the template recipe afterwards.
+      #
+      - name: Apply template
+        if: steps.template_exists.outputs.files_exists == 'true'
+        run: npx tmplr && rm -fr .tmplr.yml
         env:
           owner_name: ${{ github.event.repository.owner.name }}
           owner_email: ${{ github.event.repository.owner.email }}
           repo_name: ${{ github.event.repository.name }}
           repo_url: ${{ github.event.repository.ssh_url }}
-      
-      #
-      # Cleanup stuff so that the workflow doesn't run anymore
-      #
-      - name: Cleanup
-        run: |
-          rm -fr .tmplr.yml
-          rm -fr .github/workflows/init.yml
-      
+
       #
       # Commit the code
       #
