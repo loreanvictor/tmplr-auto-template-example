@@ -32,7 +32,7 @@ steps:
     fallback:
       from: git.remote_name
       fallback:
-        from: path.rootdir
+        from: filesystem.rootdir
  
   #
   # So if the remote url cannot be figured out, we
